@@ -5,6 +5,6 @@ export type SafeUser = Omit<
     "createdAt" | "updatedAt" | "emailVerified"
 > & {
     createdAt: string;
-    updatedAT: string;
+    updatedAt: string;
     emailVerified: string | null;
 };

@@ -21,8 +21,10 @@ import { useRouter } from 'next/navigation';
 
 const LoginModel = () => {
     const router = useRouter();
+
     const registerModel = useRegisterModel();
     const loginModel = useLoginModel();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -59,6 +61,11 @@ const LoginModel = () => {
                 }
             })
     }
+
+    const toggle = useCallback(() => {
+        loginModel.onClose();
+        registerModel.onOpen();
+    }, [loginModel, registerModel]);
 
     const bodyContent = (
         <div className=' flex flex-col gap-4'>
@@ -112,17 +119,17 @@ const LoginModel = () => {
             >
                 <div className=" justify-center flex flex-row items-center gap-2">
                     <div>
-                        Already have an account?
+                        First time using ojni?
                     </div>
                     <div
-                        onClick={registerModel.onClose}
+                        onClick={toggle}
                         className="
                         text-blue-500
                         cursor-pointer
                         hover:underline
                     "
                     >
-                        Log in
+                        Create an account
                     </div>
                 </div>
             </div>

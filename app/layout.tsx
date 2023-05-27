@@ -32,7 +32,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <RegisterModel />
           <LoginModel />
-          <Navbar />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}
       </body>

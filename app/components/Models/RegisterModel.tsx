@@ -16,9 +16,13 @@ import Input from '../Inputs/Input';
 import { toast } from 'react-toastify';
 import Button from '../Button';
 import { signIn } from 'next-auth/react';
+import useLoginModel from '@/app/hooks/useLoginModel';
 
 const RegisterModel = () => {
-    const RegisterModel = useRegisterModel();
+
+    const registerModel = useRegisterModel();
+    const loginModel = useLoginModel();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -40,7 +44,7 @@ const RegisterModel = () => {
 
         axios.post('/api/register', data)
             .then(() => {
-                RegisterModel.onClose();
+                registerModel.onClose();
             })
             .catch((error) => {
                 toast.error("Something went wrong❗");
@@ -50,6 +54,11 @@ const RegisterModel = () => {
                 setIsLoading(false);
             })
     }
+
+    const toggle = useCallback(() => {
+        registerModel.onClose();
+        loginModel.onOpen();
+    }, [loginModel, registerModel]);
 
     const bodyContent = (
         <div className=' flex flex-col gap-4'>
@@ -113,7 +122,7 @@ const RegisterModel = () => {
                         Already have an account?
                     </div>
                     <div
-                        onClick={RegisterModel.onClose}
+                        onClick={toggle}
                         className="
                         text-blue-500
                         cursor-pointer
@@ -130,10 +139,10 @@ const RegisterModel = () => {
     return (
         <Model
             disabled={isLoading}
-            isOpen={RegisterModel.isOpen}
+            isOpen={registerModel.isOpen}
             title='Register'
             actionLabel='continue'
-            onClose={RegisterModel.onClose}
+            onClose={registerModel.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
             footer={footerContent}

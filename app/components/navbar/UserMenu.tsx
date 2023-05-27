@@ -23,10 +23,17 @@ const UserMenu: React.FC<UserMenuProps> = ({
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
     }, []);
+
+    const onApply = useCallback(() => {
+        if (!currentUser) {
+            return loginModel.onOpen();
+        }
+    }, [currentUser, loginModel])
+
     return (
         <div className="relative">
             <div className="flex flex-row items-center gap-3">
-                <div onClick={() => { }}
+                <div onClick={onApply}
                     className="
                 hidden
                 md:block
