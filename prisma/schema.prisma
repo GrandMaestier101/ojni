@@ -54,8 +54,11 @@ model Listing {
   category      String
   jobNature     String
   vacancyCount  Int
+  expCount      Int
+  workHour      Int
   locationValue String
   userId        String   @db.ObjectId
+  salary        Int
 
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   applications Application[]
@@ -67,7 +70,6 @@ model Application {
   listingId String?  @db.ObjectId
   startDate DateTime
   endDate   DateTime
-  salary    Int
   createdAt DateTime @default(now())
 
   User    User     @relation(fields: [userId], references: [id], onDelete: Cascade)

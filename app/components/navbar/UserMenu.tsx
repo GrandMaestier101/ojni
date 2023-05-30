@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModel from '@/app/hooks/useRegisterModel';
 import useLoginModel from '@/app/hooks/useLoginModel';
+import useApplyModel from '@/app/hooks/useApplyModel';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
 
@@ -18,6 +19,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
 }) => {
     const registerModel = useRegisterModel();
     const loginModel = useLoginModel();
+    const applyModel = useApplyModel();
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = useCallback(() => {
@@ -28,6 +30,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         if (!currentUser) {
             return loginModel.onOpen();
         }
+        applyModel.onOpen();
     }, [currentUser, loginModel])
 
     return (
@@ -108,7 +111,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                                     label="My Work"
                                 />
                                 <MenuItem
-                                    onClick={() => { }}
+                                    onClick={applyModel.onOpen}
                                     label="My workspace Home "
                                 />
                                 <hr />
@@ -121,7 +124,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                             <>
                                 <MenuItem
                                     onClick={loginModel.onOpen}
-                                    label="login"
+                                    label="Login"
                                 />
                                 <MenuItem
                                     onClick={registerModel.onOpen}
